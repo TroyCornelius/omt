@@ -221,12 +221,8 @@ void _insert_at(struct omt_tree *tree,
         node = &tree->nodes[subtree->idx];
 
         node->weight++;
-        if (*rebalance_subtree == NULL) {
-            int diff = _maybe_rebalance(tree, subtree);
-            if (diff > 0) {
+        if (*rebalance_subtree == NULL && _maybe_rebalance(tree, subtree) > 0) {
                 *rebalance_subtree = subtree;
-                //printf("subtree[%d] need to rebalance, diff [%d], w:[%d]\n", subtree->idx, diff, node->weight);
-            }
         }
         if (idx <= _weight(tree, &node->left)) {
             _insert_at(tree,
